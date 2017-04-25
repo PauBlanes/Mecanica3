@@ -354,14 +354,16 @@ namespace Caixa {
 	GLuint cubProgram;
 	float length;
 	glm::vec3 cubColor;
+	glm::mat4 objModel;
 
 	const char* cub_vertShader =
-	"#version 330\n\
+		"#version 330\n\
 	in vec3 in_Position;\n\
 	uniform vec3 color;\n\
+	uniform mat4 objMat;\n\
 	out vec3 pass_colour;\n\
 	void main() {\n\
-		gl_Position = vec4(in_Position, 1.0);\n\
+		gl_Position = objMat* vec4(in_Position, 1.0);\n\
 		pass_colour = color;\n\
 	}";
 	const char* cub_geomShader =
@@ -371,9 +373,10 @@ namespace Caixa {
 	in vec3 pass_colour[];\n\
 	out vec3 finalColour;\n\
 	uniform mat4 mvpMat;\n\
+	uniform mat4 objMat;\n\
 	uniform float length;\n\
 	void createVertex (vec3 offset) {\n\
-		vec4 actualOffset = vec4(offset * length, 0.0);\n\
+		vec4 actualOffset = objMat * vec4(offset * length, 0.0);\n\
 		vec4 worldPosition = gl_in[0].gl_Position + actualOffset;\n\
 		gl_Position = mvpMat * worldPosition;\n\
 		finalColour = pass_colour[0];\n\
@@ -468,20 +471,21 @@ namespace Caixa {
 
 		cleanupCubShaderAndProgram();
 	}
-	void updateCaixa(glm::vec3 pos, float length, glm::vec3 color) {
+	void updateCaixa(glm::mat4 modelMat) {
 		glBindBuffer(GL_ARRAY_BUFFER, cubVbo);
 		float* buff = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-		buff[0] = pos.x;
-		buff[1] = pos.y;
-		buff[2] = pos.z;
+		buff[0] = 0;
+		buff[1] = 0;
+		buff[2] = 0;
+		objModel = modelMat;
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		Caixa::length = length;
-		Caixa::cubColor = color;
+		
 	}
 	void DrawCaixa() {
 		glBindVertexArray(cubVao);
 		glUseProgram(cubProgram);
+		glUniformMatrix4fv(glGetUniformLocation(cubProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objModel));
 		glUniformMatrix4fv(glGetUniformLocation(cubProgram, "mvpMat"), 1, GL_FALSE, glm::value_ptr(_MVP));
 		glUniform3f(glGetUniformLocation(cubProgram, "color"), cubColor.x, cubColor.y, cubColor.z);
 		glUniform1f(glGetUniformLocation(cubProgram, "length"), Caixa::length);

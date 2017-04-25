@@ -17,9 +17,9 @@ namespace Sphere {
 	extern void drawSphere();
 }
 namespace Caixa {
-	extern void setupCaixa(glm::vec3 pos = glm::vec3(0.f, 5.f, 0.f), float length = 1.f, glm::vec3 color = glm::vec3(1.f, 0.54902f, 0.f));
+	extern void setupCaixa(glm::vec3 pos = glm::vec3(0.f, 0.f, 0.f), float length = 1.f, glm::vec3 color = glm::vec3(1.f, 0.54902f, 0.f));
 	extern void cleanupCaixa();
-	extern void updateCaixa(glm::vec3 pos, float length, glm::vec3 color);
+	extern void updateCaixa(glm::mat4 modelMat);
 	extern void DrawCaixa();
 }
 namespace Capsule {
@@ -58,20 +58,23 @@ void cleanupPrims() {
 }
 
 void renderPrims() {
-	if (renderSphere)
+	/*if (renderSphere)
 		Sphere::drawSphere();
 	if (renderCapsule)
 		Capsule::drawCapsule();
 
 	if (renderParticles) {
 		LilSpheres::drawParticles(0, LilSpheres::maxParticles);
-	}
+	}*/
 
 	if (renderCaixa) {
-		//Caixa::updateCaixa(glm::vec3(2.f, 5.f, 0.f), 1.f, glm::vec3 (1.f, 0.54902f, 0.f));
+		glm::mat4 prova=glm::mat4(1.f);
+		prova = glm::translate(prova, glm::vec3(0.f, 5.f, 0.f));
+		prova = glm::rotate(prova, glm::radians(60.f), glm::vec3(1.f, 0.f, 0.f));
+		Caixa::updateCaixa(prova);
 		Caixa::DrawCaixa();
 	}
 	
-	if (renderCloth)
-		ClothMesh::drawClothMesh();
+	/*if (renderCloth)
+		ClothMesh::drawClothMesh();*/
 }
