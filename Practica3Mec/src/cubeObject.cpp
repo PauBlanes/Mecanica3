@@ -11,15 +11,25 @@ Cubo::Cubo(vec3 inicialPos, GLfloat massa) {
 
 void Cubo::Update(GLfloat deltaTime) {
 	
+	//movimiento
 	position += deltaTime*v;
 	v = P / mass;
 	P += deltaTime*force;
 	force = { 0,mass * gravity,0 };
 
-	//Pintar
+	//rotacion
+		//calculamos torque
+		//calculamos L
+		//mat3 temporal R a partir de q
+		//calculamos I-1
+		//calculamos w
+		//q += deltaTime*((1/2)* (w pasada a quaternion con 0 en la primera coordenada) * q)
+		//normalizamos q		
+
+	//Actualizamos cubo
 	mat4 temp = mat4(1.f);
 	temp = translate(temp, position);
-	//temp = rotation;
+	//temp = mat4_cast(q)
 	Caixa::updateCaixa(temp);
 		
 }
@@ -27,7 +37,7 @@ void Cubo::Update(GLfloat deltaTime) {
 void Cubo::Reset() {
 	
 	srand(time(NULL));
-	
+	//pos donde aplicamos fuerza
 	P = { 0,0,0 };
 	position = { rand() % 3 + 1,rand() % 8 + 1,rand() % 3 + 1 };
 	v = { 0,0,0 };
