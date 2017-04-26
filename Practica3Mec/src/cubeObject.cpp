@@ -19,6 +19,7 @@ void Cubo::Update(GLfloat deltaTime) {
 
 	//rotacion
 		//calculamos torque
+
 		//calculamos L
 		//mat3 temporal R a partir de q
 		//calculamos I-1
