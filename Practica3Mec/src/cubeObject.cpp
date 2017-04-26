@@ -1,6 +1,6 @@
 #include "cubeObject.h"
 
-float gravity = -9.8f;
+
 bool renderCaixa = true;
 
 Cubo::Cubo(vec3 inicialPos, GLfloat massa) {
@@ -17,10 +17,10 @@ void Cubo::Update(GLfloat deltaTime) {
 	force = { 0,mass * gravity,0 };
 
 	//Pintar
-	mat4 prova = mat4(1.f);
-	prova = translate(prova, position);
-	//prova = glm::rotate(prova, glm::radians(60.f), glm::vec3(1.f, 0.f, 0.f));
-	Caixa::updateCaixa(prova);
+	mat4 temp = mat4(1.f);
+	temp = translate(temp, position);
+	//temp = rotation;
+	Caixa::updateCaixa(temp);
 		
 }
 
@@ -29,12 +29,12 @@ void Cubo::Reset() {
 	srand(time(NULL));
 	
 	P = { 0,0,0 };
-	position = { rand() % 4 + 1,rand() % 9 + 1,rand() % 4 + 1 };
+	position = { rand() % 3 + 1,rand() % 8 + 1,rand() % 3 + 1 };
 	v = { 0,0,0 };
 	torque = { 0,0,0 };
 	w = { 0,0,0 };
 	L = { 0,0,0 };
-	rotation = mat3(1.f);
+	q = mat3(1.f);
 	I = mat3(1.f);
 	
 	Ibody = mat3(1.f);

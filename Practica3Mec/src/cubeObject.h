@@ -2,10 +2,9 @@
 #include <glm\gtc\type_ptr.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 #include <GL\glew.h>
+#include <iostream>
 #include <time.h>   
 using namespace glm;
-
-extern float gravity;
 
 //Per pitnar el cub
 extern bool renderCaixa;
@@ -22,6 +21,8 @@ public:
 	void Update(GLfloat deltaTime);
 	void Reset();
 	void DetectCollision();
+
+	float gravity;
 private:
 	vec3 P; //angular momentum
 	vec3 position;
@@ -31,7 +32,7 @@ private:
 	vec3 torque;
 	vec3 w;
 	vec3 L;
-	mat3 rotation;
+	quat q;
 	mat3 Ibody;
 	mat3 I; //rensor d'inercia	
 	GLfloat mass;

@@ -54,14 +54,17 @@ void PhysicsInit() {
 	myCube.Reset();
 }
 void PhysicsUpdate(float dt) {
-	//TODO
-	
+	//Igualara gravedad con el gui
+	myCube.gravity = GravityAccel[1];
+
+	//contar tiempo
 	if (Play_simulation) {
 		if (Second >= resertTime) {
 			Second = 0;
 			Reset = true;
 		}
 	}
+	//hacer reset cada X secs
 	if (Reset) {
 		Second = 0;
 		Second += 1 / ImGui::GetIO().Framerate;
@@ -69,6 +72,7 @@ void PhysicsUpdate(float dt) {
 		Reset = false;
 		Play_simulation = true;
 	}
+	//movemos el cubo
 	myCube.Update(dt);
 	
 
