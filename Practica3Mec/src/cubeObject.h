@@ -35,8 +35,7 @@ private:
 	mat3 Ibody;
 	mat3 I; //rensor d'inercia	
 	GLfloat mass;
-
-	GLfloat timer = 5;
+	
 };
 
 

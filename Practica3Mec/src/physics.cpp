@@ -9,7 +9,7 @@ bool show_test_window = false;
 static bool Play_simulation = true;
 static bool Reset = false;
 static bool Collisions = true;
-static float resertTime = 20;
+static float resertTime = 5;
 static float GravityAccel[3] = { 0.0f, -9.81f,0.0f };
 static float Torelance = 0;
 static float elastic = 0;
@@ -30,7 +30,7 @@ void GUI() {
 			Reset ^= 1;
 		}
 		//Resert Time
-		ImGui::DragFloat("Resert Time", &resertTime, 20);
+		ImGui::DragFloat("Resert Time", &resertTime, 5);
 		//Gravity
 		ImGui::InputFloat3("Gravity Accel", GravityAccel);
 		
@@ -51,11 +51,11 @@ void GUI() {
 
 void PhysicsInit() {
 	Caixa::setupCaixa();
-	
+	myCube.Reset();
 }
 void PhysicsUpdate(float dt) {
 	//TODO
-	cout << Second << endl;
+	
 	if (Play_simulation) {
 		if (Second >= resertTime) {
 			Second = 0;

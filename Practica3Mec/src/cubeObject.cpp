@@ -21,12 +21,7 @@ void Cubo::Update(GLfloat deltaTime) {
 	prova = translate(prova, position);
 	//prova = glm::rotate(prova, glm::radians(60.f), glm::vec3(1.f, 0.f, 0.f));
 	Caixa::updateCaixa(prova);
-
-	timer -= deltaTime;
-	if (timer <= 0) {
-		Reset();
-		timer = 5;
-	}
+		
 }
 
 void Cubo::Reset() {
