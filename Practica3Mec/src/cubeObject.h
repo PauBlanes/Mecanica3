@@ -37,6 +37,7 @@ private:
 	mat3 I; //rensor d'inercia	
 	GLfloat mass;
 	
+	
 };
 
 

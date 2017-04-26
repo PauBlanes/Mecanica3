@@ -37,9 +37,10 @@ void Cubo::Update(GLfloat deltaTime) {
 void Cubo::Reset() {
 	
 	srand(time(NULL));
-	//pos donde aplicamos fuerza
+	
 	P = { 0,0,0 };
 	position = { rand() % 3 + 1,rand() % 8 + 1,rand() % 3 + 1 };
+	//pointOfApplication = { rand() % (position + 0.5) - 0.25, position - 0.25, rand() % (position + 0.5) - 0.25 }; 
 	v = { 0,0,0 };
 	torque = { 0,0,0 };
 	w = { 0,0,0 };
@@ -51,5 +52,5 @@ void Cubo::Reset() {
 	Ibody[0][0] = (1 / 12)*mass*(pow(.5f, 2)* pow(.5f, 2));
 	Ibody[1][1] = (1 / 12)*mass*(pow(.5f, 2)* pow(.5f, 2));
 	Ibody[2][2] = (1 / 12)*mass*(pow(.5f, 2)* pow(.5f, 2));
-	force = { rand()%150+50,rand() % 150 + 50,rand() % 150 + 50 };
+	force = { 0,rand() % 150 + 50,0 };
 }
