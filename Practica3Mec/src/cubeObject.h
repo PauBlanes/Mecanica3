@@ -34,7 +34,7 @@ private:
 	vec3 L;
 	quat q;
 	mat3 Ibody;
-	mat3 I; //rensor d'inercia	
+	mat3 Iinverse; //rensor d'inercia	
 	GLfloat mass;
 	
 	
