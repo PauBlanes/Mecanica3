@@ -40,7 +40,8 @@ void Cubo::Reset() {
 	
 	P = { 0,0,0 };
 	position = { rand() % 3 + 1,rand() % 8 + 1,rand() % 3 + 1 };
-	pointOfApplication = { rand() % (position + 0.5) - 0.25, position - 0.25, rand() % (position + 0.5) - 0.25 }; //https://channel9.msdn.com/Events/GoingNative/2013/rand-Considered-Harmful
+	//pointOfApplication = { rand() % (position + 0.5) - 0.25, position - 0.25, rand() % (position + 0.5) - 0.25 }; //https://channel9.msdn.com/Events/GoingNative/2013/rand-Considered-Harmful
+	pointOfApplication = { -0.5, position.y - 0.5, position.z + 0.5 };
 	v = { 0,0,0 };
 	torque = { 0,0,0 };
 	w = { 0,0,0 };
