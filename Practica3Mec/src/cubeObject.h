@@ -22,7 +22,9 @@ public:
 	void Reset();
 	void DetectCollision(vec3 normal, GLfloat d, GLfloat dt);
 
-	float gravity;
+	GLfloat gravity;
+	GLfloat elastic;
+	GLfloat tolerance;
 private:
 	vec3 verticesPositions[8];
 	vec3 P; //angular momentum
