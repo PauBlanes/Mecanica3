@@ -20,10 +20,11 @@ public:
 	Cubo(vec3 inicialPos, GLfloat massa);
 	void Update(GLfloat deltaTime);
 	void Reset();
-	void DetectCollision();
+	void DetectCollision(vec3 normal, GLfloat d, GLfloat dt);
 
 	float gravity;
 private:
+	vec3 verticesPositions[8];
 	vec3 P; //angular momentum
 	vec3 position;
 	vec3 v; //velocidad linera

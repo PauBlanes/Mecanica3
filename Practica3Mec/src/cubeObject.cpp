@@ -14,8 +14,8 @@ void Cubo::Update(GLfloat deltaTime) {
 	//movimiento	
 	P += deltaTime*force;
 	v = P / mass;
-	position += deltaTime*v;	
-
+	position += deltaTime*v;
+	
 	//rotacion	
 		//mat3 temporal R a partir de q
 		mat3 R = mat3_cast(q);
@@ -62,4 +62,35 @@ void Cubo::Reset() {
 	torque = cross((pointOfApplication - position), force);
 	//calculamos L
 	L = torque*0.033f;
+}
+
+void Cubo::DetectCollision(vec3 normal, GLfloat d, GLfloat dt) {
+
+	//actualitzem posicions dels vertexs
+	verticesPositions[0] = vec3(position.x + 0.25f, position.y + 0.25f, position.z + 0.25f);
+	verticesPositions[1] = vec3(position.x + 0.25f, position.y + 0.25f, position.z - 0.25f);
+	verticesPositions[2] = vec3(position.x + 0.25f, position.y - 0.25f, position.z + 0.25f);
+	verticesPositions[3] = vec3(position.x + 0.25f, position.y - 0.25f, position.z - 0.25f);
+	verticesPositions[4] = vec3(position.x - 0.25f, position.y + 0.25f, position.z + 0.25f);
+	verticesPositions[5] = vec3(position.x - 0.25f, position.y + 0.25f, position.z - 0.25f);
+	verticesPositions[6] = vec3(position.x - 0.25f, position.y - 0.25f, position.z + 0.25f);
+	verticesPositions[7] = vec3(position.x - 0.25f, position.y - 0.25f, position.z - 0.25f);
+
+	
+	//calculem quina seria la seva seguent posicio per a cada un dels vertexs
+	for (int i = 0; i < 8; i++) {
+		vec3 posCreuada = verticesPositions[i] + dt*v;
+		GLfloat accurateTime = dt;
+
+		//calculem el moment exacte en que colisionara
+		if ((dot(normal, verticesPositions[i]) + d) * (dot(normal, posCreuada) + d) <= 0) {
+			std::cout << "colliding" << std::endl;
+		}
+	}
+	
+	//nova força?????
+	//J = force*deltaTime
+	//v = J/mass
+	//calcular nova pos, nova velocitat
+	//recalcular torque i L ->pointofApplication es el punt on colisiona
 }

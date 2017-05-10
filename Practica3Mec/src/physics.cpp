@@ -73,6 +73,7 @@ void PhysicsUpdate(float dt) {
 		Play_simulation = true;
 	}
 	//movemos el cubo
+	myCube.DetectCollision(vec3(0, 1, 0), 0, dt);
 	myCube.Update(dt);
 	
 
