@@ -153,7 +153,7 @@ void Cubo::DetectCollision(vec3 normal, GLfloat d, GLfloat dt) {
 			
 			//CALCULEM torque
 			torque = cross(ra, J);			
-			//RECLAULEM TOT
+			//RECLAULEM TOT/
 			P = J;						
 			v = J / mass;			
 			position = position_t0 + v*dt;
