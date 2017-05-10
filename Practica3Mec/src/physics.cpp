@@ -11,7 +11,7 @@ static bool Reset = false;
 static bool Collisions = true;
 static float resertTime = 5;
 static float GravityAccel[3] = { 0.0f, -9.81f,0.0f };
-static float Torelance = 0;
+static float Torelance = 0.0001;
 static float elastic = 1;
 
 vec3 wallNormals[6];
@@ -39,7 +39,7 @@ void GUI() {
 		if (ImGui::CollapsingHeader("Collisions")) {
 			//Use Sphere collider
 			ImGui::Checkbox("Use Collisions", &Collisions);
-			ImGui::DragFloat("Torelance", &Torelance);
+			ImGui::InputFloat("Torelance", &Torelance);
 			ImGui::DragFloat("Elastic Coefficient", &elastic);
 		}
 	}
@@ -64,7 +64,7 @@ void PhysicsInit() {
 	wallNormals[5] = { 0,0,-1 };
 	wallDs[0] = 0;
 	wallDs[1] = 10;
-	wallDs[2] = -5;
+	wallDs[2] = 5;
 	wallDs[3] = 5;
 	wallDs[4] = 5;
 	wallDs[5] = -5;
@@ -74,6 +74,7 @@ void PhysicsUpdate(float dt) {
 	//Igualara gravedad con el gui
 	myCube.gravity = GravityAccel[1];
 	myCube.elastic = elastic;
+	myCube.tolerance = Torelance;
 
 	//contar tiempo
 	if (Play_simulation) {

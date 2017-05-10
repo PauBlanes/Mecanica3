@@ -47,23 +47,23 @@ void Cubo::Reset() {
 	srand(time(NULL));
 	
 	P = { 0,0,0 };
-	position = { rand() % 3 + 1,rand() % 8 + 1,rand() % 3 + 1 };
-	pointOfApplication = { position.x - 0.25, position.y + 0.25, position.z + 0.25 };
-	/*int randVertex = rand() % 3;
+	position = { -3,rand() % 5 + 3,rand() % 3 + 1 };
+	
+	int randVertex = rand() % 3;
 	switch (randVertex) {
 	case 0:
-		pointOfApplication = { position.x - 0.25, position.y - 0.25, position.z + 0.25 };
-		break;
-	case 1:
 		pointOfApplication = { position.x + 0.25, position.y - 0.25, position.z + 0.25 };
 		break;
-	case 2:
+	case 1:
 		pointOfApplication = { position.x + 0.25, position.y - 0.25, position.z - 0.25 };
 		break;
-	case 3:
-		pointOfApplication = { position.x - 0.25, position.y - 0.25, position.z - 0.25 };
+	case 2:
+		pointOfApplication = { position.x + 0.25, position.y + 0.25, position.z + 0.25 };
 		break;
-	}*/
+	case 3:
+		pointOfApplication = { position.x + 0.25, position.y + 0.25, position.z - 0.25 };
+		break;
+	}
 	
 	v = { 0,0,0 };
 	torque = { 0,0,0 };
@@ -74,7 +74,7 @@ void Cubo::Reset() {
 	
 	float prova = (mass*0.5) / 12;
 	Ibody = mat3(prova);
-	force = { 100, 0,0 };
+	force = { -100, 0,0 };
 	//calculamos torque
 	torque = cross((pointOfApplication - position), force);
 	//calculamos L
@@ -104,7 +104,7 @@ void Cubo::DetectCollision(vec3 normal, GLfloat d, GLfloat dt) {
 			GLfloat newdt = dt/2;
 			GLfloat lastNewDt = 0;
 			GLfloat multiple = 4;
-			while (multiple < 4096) {				
+			while (abs(newdt - lastNewDt) > tolerance) {				
 				vec3 posCreuada = verticesPositions[i] + newdt*v; //simulem nova pos
 				lastNewDt = newdt;
 				if ((dot(normal, verticesPositions[i]) + d) * (dot(normal, posCreuada) + d) <= 0) {
@@ -163,7 +163,7 @@ void Cubo::DetectCollision(vec3 normal, GLfloat d, GLfloat dt) {
 			q += dt*(0.5f*(tempW*q));
 			//normalizamos q
 			q = normalize(q);
-			
+						
 		}
 		
 	}
